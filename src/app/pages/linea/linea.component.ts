@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LineaService } from 'src/app/service/linea.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/modal/modal.service';
-import { Subscription } from 'rxjs';
+
 import { Router } from '@angular/router';
 
 
@@ -19,7 +19,7 @@ export class LineaComponent implements OnInit {
   forma: FormGroup;
   idLinea;
   
-  subscription = new Subscription();
+ 
 
   constructor(public serviceLinea: LineaService,
     public serviceModal: ModalService,

@@ -9,12 +9,17 @@ import { ProdcutoComponent } from './pages/prodcuto/prodcuto.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { RoutingModule } from './shared/navbar/routin.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { LineaService } from './service/linea.service';
+
 import { HttpClientModule } from '@angular/common/http';
 
 import { ModalService } from './modal/modal.service';
 import { ModalComponent } from './modal/modal.component';
+
+// servicios
+
+import { LineaService } from './service/linea.service';
 import { CategoriaService } from './service/categoria.service';
+import { ProductoService } from './service/producto.service';
 
 
 
@@ -38,7 +43,7 @@ import { CategoriaService } from './service/categoria.service';
     ReactiveFormsModule,
 
   ],
-  providers: [LineaService, ModalService, CategoriaService],
+  providers: [LineaService, ModalService, CategoriaService, ProductoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

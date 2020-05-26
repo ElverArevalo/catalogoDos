@@ -13,10 +13,11 @@ import { ProdcutoComponent } from 'src/app/pages/prodcuto/prodcuto.component';
 const appRoutes: Routes = [
 
   { path : 'linea' , component: LineaComponent },
- // { path : 'linea/:id' , component: LineaComponent },
+
   { path : 'categoria' , component: CategoriaComponent },
   { path : 'categoria/:id' , component: CategoriaComponent },
   { path : 'producto' , component: ProdcutoComponent },
+  { path : 'producto/:id' , component: ProdcutoComponent },
 
 
   // otherwise redirect to home
