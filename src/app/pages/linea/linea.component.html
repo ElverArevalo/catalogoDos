@@ -3,7 +3,7 @@
 
 
 <!-- Button trigger modal -->
-<button style="margin: 50px;" type="button" class="btn btn-primary" (click)="mostrarModal()" data-toggle="modal" data-target="#exampleModal">
+<button style="margin: 50px;" type="button" class="d-inline p-2 bg-dark text-white" (click)="mostrarModal()" data-toggle="modal" data-target="#exampleModal">
   Agregar Linea
 </button>
 
@@ -51,19 +51,32 @@
 <div class="card weather-card"    >
 
   <!-- Card content -->
-  <div class="card-body pb-3"   >
-<div class="btn btn-info" data-toggle="tooltip" data-html="true" title="Actualizar">
-  <svg  class="bi bi-pencil-square"  (click)="mostrarModalActulizar(linea)" data-toggle="modal" data-target="#exampleModalActulizar" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-  </svg>
-</div>
-<div style="padding: 50px;" class="form-check form-check-inline">
-  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" [checked]="linea.estado" (change)="check($event,linea._id)">
-  <label class="form-check-label" for="inlineCheckbox1" *ngIf="linea.estado">Visible</label>
-  <label style="color: blue;" class="form-check-label" for="inlineCheckbox1" *ngIf="!linea.estado">Oculto</label>
-</div>
+  <div class="card-body border border-success pb-3"   >
+    <div class="row">
+      <div class="col-6">
+        <div class="btn btn-info" data-toggle="tooltip" data-html="true" title="Actualizar">
+          <svg  class="bi bi-pencil-square"  (click)="mostrarModalActulizar(linea)" data-toggle="modal" data-target="#exampleModalActulizar" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+          </svg>
+        </div>
+      </div>
+     
+      <div class="col-6 float-right" style="text-align: right; margin-bottom: 20px;">
+        <div class="btn btn-info" data-toggle="tooltip" data-html="true" title="Cargar Imagen">
+        <svg type="button" class="btn btn-primary" data-toggle="modal" (click)="mostrarModalImg(linea._id)" data-target="#exampleModalImagen" class="bi bi-box-arrow-up" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M4.646 4.354a.5.5 0 0 0 .708 0L8 1.707l2.646 2.647a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 0 0 0 .708z"/>
+          <path fill-rule="evenodd" d="M8 11.5a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-1 0v9a.5.5 0 0 0 .5.5z"/>
+          <path fill-rule="evenodd" d="M2.5 14A1.5 1.5 0 0 0 4 15.5h8a1.5 1.5 0 0 0 1.5-1.5V7A1.5 1.5 0 0 0 12 5.5h-1.5a.5.5 0 0 0 0 1H12a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5H4a.5.5 0 0 1-.5-.5V7a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 0 0-1H4A1.5 1.5 0 0 0 2.5 7v7z"/>
+        </svg>
+      </div>
+        
+      </div>
+    </div>
+
+
   
+
 
 
     <!-- Modal Actulizar Linea-->
@@ -103,16 +116,53 @@
     </div>
   </div>
 
-   
-    <!-- Title -->
-    <h4 class="card-title font-weight-bold">{{linea.descripcion}}</h4>
-    <!-- Text -->
-    <p class="card-text"> {{linea.nombre}}</p>
-    <div class="d-flex justify-content-between">
-      <p class="display-1 degree centrarImagen"><img class="tamanoImagen" src="assets/img/nestleLogo.jpg" alt=""></p>
-      <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
-    </div>
+
+ 
+
+
+ <!--Modal cargar Imagen-->
+
+<div class="modal fade " id="exampleModalImagen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Subir Imagen Liena</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
     
+
+        <input (change)="seleccionImagen($event.target.files[0])" type="file">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" (click)="subirImagen()" class="btn btn-primary">Guardar Imagen</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- Title -->
+    <h4 class="card-title font-weight-bold text-center">{{linea.nombre}}</h4>
+    <!-- Text -->
+    
+    <div class="d-flex justify-content-between">
+      <div class="col-3 position-absolute" >
+        <div  class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox1" [checked]="linea.estado" (change)="check($event,linea._id)">
+          <label class="form-check-label" for="inlineCheckbox1" *ngIf="linea.estado">Visible</label>
+          <label style="color: blue;" class="form-check-label" for="inlineCheckbox1" *ngIf="!linea.estado">Oculto</label>
+        </div>
+      </div>
+      <p class="display-1 degree centrarImagen">
+        <img class="tamanoImagen" src="http://localhost/imgcatalogo/lineas/{{linea.img}}" alt="">
+      </p>
+     
+      <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
+      
+    </div>
+    <p class="card-text text-center"> {{linea.descripcion}}</p>
      <div>
 
 <div style="text-align: center;">

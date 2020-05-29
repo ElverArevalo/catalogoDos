@@ -20,6 +20,7 @@ import { ModalComponent } from './modal/modal.component';
 import { LineaService } from './service/linea.service';
 import { CategoriaService } from './service/categoria.service';
 import { ProductoService } from './service/producto.service';
+import { SubirArchivosService } from './service/subir-archivos.service';
 
 
 
@@ -43,7 +44,7 @@ import { ProductoService } from './service/producto.service';
     ReactiveFormsModule,
 
   ],
-  providers: [LineaService, ModalService, CategoriaService, ProductoService],
+  providers: [LineaService, ModalService, CategoriaService, ProductoService, SubirArchivosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

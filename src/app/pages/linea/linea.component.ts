@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/modal/modal.service';
 
 import { Router } from '@angular/router';
+import { SubirArchivosService } from 'src/app/service/subir-archivos.service';
 
 
 
@@ -17,13 +18,14 @@ import { Router } from '@angular/router';
 export class LineaComponent implements OnInit {
   lineas = [];
   forma: FormGroup;
+  imagenSubir: File;
   idLinea;
-  
  
 
   constructor(public serviceLinea: LineaService,
     public serviceModal: ModalService,
-    private router: Router) { }
+    
+    public serviceSubirArchivo: SubirArchivosService) { }
 
 
   ngOnInit(): void {
@@ -43,6 +45,10 @@ export class LineaComponent implements OnInit {
   }
   mostrarModal() {
     this.serviceModal.mostrarModal();
+  }
+  mostrarModalImg(id: string) {
+   
+    this.serviceModal.mostrarModalImagen('lineas', id);
   }
   mostrarModalActulizar(linea_id) {
     console.log(linea_id._id)
@@ -75,6 +81,7 @@ export class LineaComponent implements OnInit {
     this.serviceLinea.cargarLinea()
       .subscribe((resp: any) => {
         this.lineas = resp;
+      
       });
       
   }
@@ -87,10 +94,38 @@ export class LineaComponent implements OnInit {
     var request = {estado: estadoActual};
     this.serviceLinea.estado(Id, request)
     .subscribe((resp)=>{
-      console.log("Respuesta correcta");
+   
       this.cargaLinea();
     });
   }
+
+  
+  seleccionImagen(archivo: File) {
+
+    this.imagenSubir = archivo;
+    let reader = new FileReader();
+    let urlImagenTemp = reader.readAsDataURL(archivo);
+    
+   
+
+  }
+
+
+  subirImagen() {
+   
+    this.serviceSubirArchivo.subirArchivo( this.imagenSubir, this.serviceModal.tipo, this.serviceModal.id)
+    .then(resp => {
+     this.cargaLinea();
+      this.cerrarModal();
+      
+
+    })
+    .catch(err => {
+      console.log('Error a cargar la Imagen');
+    });
+    
+  }
+
 
 
 }

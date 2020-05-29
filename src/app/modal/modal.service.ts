@@ -9,6 +9,8 @@ export class ModalService {
    
     public oculto: string = 'oculto';
     public notificacion$ = new EventEmitter<any>();
+    public tipo: string;
+    public id: string;
 
   constructor() {
    
@@ -18,12 +20,20 @@ export class ModalService {
     this.notificacion$.emit(true);
     $('#exampleModal').modal('hide');
     $('#exampleModalActulizar').modal('hide');
+    $('#exampleModalImagen').modal('hide');
   
   }
    mostrarModal() {
  
     this.oculto = '';
+  
+  }
 
+  mostrarModalImagen( tipo: string, id: string) {
+    this.oculto = '';
+    this.id= id;
+    this.tipo = tipo;
+  
   }
   tootlop() {
     $('#example').tooltip({ boundary: 'window' })

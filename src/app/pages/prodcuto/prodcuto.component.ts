@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ModalService } from 'src/app/modal/modal.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProductoService } from 'src/app/service/producto.service';
+import { SubirArchivosService } from 'src/app/service/subir-archivos.service';
 
 @Component({
   selector: 'app-prodcuto',
@@ -12,6 +13,7 @@ import { ProductoService } from 'src/app/service/producto.service';
 export class ProdcutoComponent implements OnInit {
   productos = [];
   forma: FormGroup;
+  imagenSubir: File;
   idProducto;
   categoria_id;
   
@@ -19,7 +21,8 @@ export class ProdcutoComponent implements OnInit {
 
   constructor(public serviceProducto: ProductoService,
     public serviceModal: ModalService,
-    public activate: ActivatedRoute) { }
+    public activate: ActivatedRoute,
+    public serviceSubirArchivo: SubirArchivosService) { }
 
 
   ngOnInit(): void {
@@ -53,12 +56,21 @@ export class ProdcutoComponent implements OnInit {
   mostrarModal() {
     this.serviceModal.mostrarModal();
   }
+  mostrarModalImg(id: string) {
+   
+    this.serviceModal.mostrarModalImagen('productos', id);
+  }
   mostrarModalActulizar(producto_id) {
     console.log(producto_id._id)
     this.serviceModal.mostrarModal();
     this.forma.patchValue({
       nombre: producto_id.nombre,
-      descripcion: producto_id.descripcion
+      descripcion: producto_id.descripcion,
+      credito: producto_id.credito,
+      display: producto_id.display,
+      unidad: producto_id.unidad,
+      refinv: producto_id.refinv,
+
     });
    this.idProducto = producto_id._id;
 
@@ -103,6 +115,31 @@ export class ProdcutoComponent implements OnInit {
       this.cargaProducto();
     });
   }
+
+  seleccionImagen(archivo: File) {
+
+    this.imagenSubir = archivo;
+    let reader = new FileReader();
+    let urlImagenTemp = reader.readAsDataURL(archivo);
+  
+
+  }
+
+  subirImagen() {
+   
+    this.serviceSubirArchivo.subirArchivo( this.imagenSubir, this.serviceModal.tipo, this.serviceModal.id)
+    .then(resp => {
+     this.cargaProducto();
+      this.cerrarModal();
+      
+
+    })
+    .catch(err => {
+      console.log('Error a cargar la Imagen');
+    });
+    
+  }
+
 
 
 }
