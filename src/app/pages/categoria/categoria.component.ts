@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { CategoriaService } from 'src/app/service/categoria.service';
 import { ModalService } from 'src/app/modal/modal.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { LineaService } from 'src/app/service/linea.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-categoria',
@@ -14,9 +16,11 @@ forma: FormGroup;
 linea_id: any;
 categorias: any[];
 idCategoria;
+nombreLine;
   constructor(private activate: ActivatedRoute,
     public serviceCategoria: CategoriaService,
-    public serviceModal: ModalService) { }
+    public serviceModal: ModalService,
+    public serviceLinea: LineaService) { }
 
   ngOnInit(): void {
     this.activate.params.subscribe(
@@ -26,6 +30,7 @@ idCategoria;
        
       }
     );
+    this.obtenerNombreLine();
     this. cargaCategoria();
     this.forma = new FormGroup({
       nombre: new FormControl(null, Validators.required),
@@ -35,6 +40,13 @@ idCategoria;
 
 
     });
+  }
+  obtenerNombreLine(){
+    this.serviceLinea.lineaById(this.linea_id)
+    .subscribe((resp: any)=>{
+      this.nombreLine = resp['nombre'];
+    });
+
   }
 
   cargaCategoria() {
@@ -65,6 +77,7 @@ idCategoria;
   actulizaCategoria(){
     this.serviceCategoria.actulizarCategoria(this.forma.value, this.idCategoria)
     .subscribe((resp) => {
+      swal("Actulizado!", "Categoria actulizada!", "success");
       this.cargaCategoria();
       this.cerrarModal();
       this.forma.reset();
@@ -73,6 +86,7 @@ idCategoria;
   guardarCategoria() {
     this.serviceCategoria.guardarCategoriaNueva(this.forma.value, this.linea_id)
       .subscribe((resp) => {
+        swal("Guardada!", "Categoria guardada!", "success");
         this.cerrarModal();
         this.cargaCategoria();
         this.forma.reset();
@@ -85,6 +99,7 @@ idCategoria;
     var request = {estado: estadoActual};
     this.serviceCategoria.estado(Id, request)
     .subscribe((resp)=>{
+      swal("Estado!", "Estado cambio!", "success");
      this.cargaCategoria();
     });
   }

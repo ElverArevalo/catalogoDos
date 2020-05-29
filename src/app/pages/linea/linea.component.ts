@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LineaService } from 'src/app/service/linea.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/modal/modal.service';
+import swal from 'sweetalert';
 
-import { Router } from '@angular/router';
 import { SubirArchivosService } from 'src/app/service/subir-archivos.service';
 
 
@@ -20,15 +20,15 @@ export class LineaComponent implements OnInit {
   forma: FormGroup;
   imagenSubir: File;
   idLinea;
- 
+
 
   constructor(public serviceLinea: LineaService,
+  
     public serviceModal: ModalService,
-    
     public serviceSubirArchivo: SubirArchivosService) { }
 
-
   ngOnInit(): void {
+
     this.cargaLinea();
     this.forma = new FormGroup({
       nombre: new FormControl(null, Validators.required),
@@ -39,7 +39,6 @@ export class LineaComponent implements OnInit {
 
     });
   }
-
   cerrarModal() {
     this.serviceModal.ocultarModal();
   }
@@ -47,7 +46,6 @@ export class LineaComponent implements OnInit {
     this.serviceModal.mostrarModal();
   }
   mostrarModalImg(id: string) {
-   
     this.serviceModal.mostrarModalImagen('lineas', id);
   }
   mostrarModalActulizar(linea_id) {
@@ -57,75 +55,66 @@ export class LineaComponent implements OnInit {
       nombre: linea_id.nombre,
       descripcion: linea_id.descripcion
     });
-   this.idLinea = linea_id._id;
-
+    this.idLinea = linea_id._id;
   }
-
-  actulizaLinea(){
+  actulizaLinea() {
     this.serviceLinea.atulizarLinea(this.forma.value, this.idLinea)
-    .subscribe((resp) => {
-      this.cargaLinea();
-      this.cerrarModal();
-      this.forma.reset();
-    })
+      .subscribe((resp) => {
+        swal("Actulizado!", "Linea actulizada!", "success");
+        this.cargaLinea();
+        this.cerrarModal();
+        this.forma.reset();
+      })
   }
   guardarLinea() {
     this.serviceLinea.guardarLineaNueva(this.forma.value)
       .subscribe((resp) => {
+        swal("Guardado!", "Linea guardada!", "success");
         this.cerrarModal();
         this.cargaLinea();
         this.forma.reset();
       });
   }
-    cargaLinea() {
+  cargaLinea() {
     this.serviceLinea.cargarLinea()
       .subscribe((resp: any) => {
         this.lineas = resp;
-      
       });
-      
   }
-
-
-  check(estado: any, Id){
+  check(estado: any, Id) {
     console.log(estado.currentTarget.checked);
     console.log(Id);
-    const  estadoActual = estado.currentTarget.checked;
-    var request = {estado: estadoActual};
+    const estadoActual = estado.currentTarget.checked;
+    var request = { estado: estadoActual };
     this.serviceLinea.estado(Id, request)
-    .subscribe((resp)=>{
-   
-      this.cargaLinea();
-    });
+      .subscribe((resp) => {
+        swal("Estado!", "Estado cambio !", "success");
+        this.cargaLinea();
+      });
   }
-
-  
   seleccionImagen(archivo: File) {
-
+    if (!archivo) {
+      this.imagenSubir = null;
+      return;
+    }
+    if (archivo.type.indexOf('image') < 0) {
+      swal('Solo Imagenes', 'El archivo seleccionado no es una imagen', 'error');
+      this.imagenSubir = null;
+      this.cerrarModal();
+      return;
+    }
     this.imagenSubir = archivo;
     let reader = new FileReader();
     let urlImagenTemp = reader.readAsDataURL(archivo);
-    
-   
-
   }
-
-
   subirImagen() {
-   
-    this.serviceSubirArchivo.subirArchivo( this.imagenSubir, this.serviceModal.tipo, this.serviceModal.id)
-    .then(resp => {
-     this.cargaLinea();
-      this.cerrarModal();
-      
-
-    })
-    .catch(err => {
-      console.log('Error a cargar la Imagen');
-    });
-    
+    this.serviceSubirArchivo.subirArchivo(this.imagenSubir, this.serviceModal.tipo, this.serviceModal.id)
+      .then(resp => {
+        this.cargaLinea();
+        this.cerrarModal();
+      })
+      .catch(err => {
+        swal('Solo Imagenes', 'Error a cargar la Imagen', 'error');
+      });
   }
-
-
-
 }

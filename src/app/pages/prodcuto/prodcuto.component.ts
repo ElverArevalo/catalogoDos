@@ -4,7 +4,8 @@ import { ModalService } from 'src/app/modal/modal.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProductoService } from 'src/app/service/producto.service';
 import { SubirArchivosService } from 'src/app/service/subir-archivos.service';
-
+import { CategoriaService } from 'src/app/service/categoria.service';
+import swal from 'sweetalert';
 @Component({
   selector: 'app-prodcuto',
   templateUrl: './prodcuto.component.html',
@@ -16,17 +17,19 @@ export class ProdcutoComponent implements OnInit {
   imagenSubir: File;
   idProducto;
   categoria_id;
+  nombre;
   
  
 
   constructor(public serviceProducto: ProductoService,
     public serviceModal: ModalService,
     public activate: ActivatedRoute,
-    public serviceSubirArchivo: SubirArchivosService) { }
+    public serviceSubirArchivo: SubirArchivosService,
+    public serviceCategoria: CategoriaService) { }
 
 
   ngOnInit(): void {
-
+    this.nombreCategoria()
     this.activate.params.subscribe(
       params => {
         this.categoria_id = params['id'];
@@ -34,7 +37,7 @@ export class ProdcutoComponent implements OnInit {
        
       }
     );
-
+    this.nombreCategoria();
     this.cargaProducto();
     this.forma = new FormGroup({
       nombre: new FormControl(null, Validators.required),
@@ -47,6 +50,13 @@ export class ProdcutoComponent implements OnInit {
       estado: new FormControl(true),
 
 
+    });
+  }
+  nombreCategoria(){
+    this.serviceCategoria.categoriaById(this.categoria_id)
+    .subscribe((resp: any)=>{
+      
+      this.nombre = resp['nombre'];
     });
   }
 
@@ -79,6 +89,7 @@ export class ProdcutoComponent implements OnInit {
   actulizaProducto(){
     this.serviceProducto.atulizarproducto(this.forma.value, this.idProducto)
     .subscribe((resp) => {
+      swal("Actulizado!", "Producto actulizada!", "success");
       this.cargaProducto();
       this.cerrarModal();
       this.forma.reset();
@@ -88,6 +99,7 @@ export class ProdcutoComponent implements OnInit {
     console.log(this.forma.value);
     this.serviceProducto.guardarProductoNueva(this.forma.value, this.categoria_id)
       .subscribe((resp) => {
+        swal("Guardado!", "Producto guardado!", "success");
         this.cerrarModal();
         this.cargaProducto();
         this.forma.reset();
@@ -111,13 +123,22 @@ export class ProdcutoComponent implements OnInit {
     var request = {estado: estadoActual};
     this.serviceProducto.estado(Id, request)
     .subscribe((resp)=>{
-      console.log("Respuesta correcta");
+      swal("Estado!", "Estado cambio!", "success");
       this.cargaProducto();
     });
   }
 
   seleccionImagen(archivo: File) {
-
+    if (!archivo) {
+      this.imagenSubir = null;
+      return;
+    }
+    if (archivo.type.indexOf('image') < 0) {
+      swal('Solo Imagenes', 'El archivo seleccionado no es una imagen', 'error');
+      this.imagenSubir = null;
+      this.cerrarModal();
+      return;
+    }
     this.imagenSubir = archivo;
     let reader = new FileReader();
     let urlImagenTemp = reader.readAsDataURL(archivo);
@@ -135,7 +156,7 @@ export class ProdcutoComponent implements OnInit {
 
     })
     .catch(err => {
-      console.log('Error a cargar la Imagen');
+      swal('Solo Imagenes', 'Error a cargar la Imagen', 'error');
     });
     
   }

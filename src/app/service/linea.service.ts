@@ -22,6 +22,13 @@ export class LineaService {
            return resp.linea;
         }));
     }
+    lineaById(id:any){
+      let url = URL_SERVICIOS + '/linea/'+ id;
+      return this.http.get(url)
+        .pipe(map((resp: any) => {
+           return resp.linea;
+        }));
+    }
     atulizarLinea(forma, id:any) {
         console.log(id);
         let url = URL_SERVICIOS + '/linea/' + id;

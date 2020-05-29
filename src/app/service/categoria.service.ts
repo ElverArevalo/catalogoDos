@@ -19,6 +19,14 @@ export class CategoriaService {
          return resp.categoria;
       }));
   }
+  categoriaById(id:any){
+    let url = URL_SERVICIOS + '/categoria/nombre/' + id;
+    return this.http.get(url)
+      .pipe(map((resp: any) => {
+         return resp.categoria;
+      }));
+
+  }
   actulizarCategoria(forma, id:any) {
     console.log(id);
     let url = URL_SERVICIOS + '/categoria/' + id;
