@@ -4,6 +4,7 @@ import {RouterModule, Routes} from "@angular/router";
 import { LineaComponent } from 'src/app/pages/linea/linea.component';
 import { CategoriaComponent } from 'src/app/pages/categoria/categoria.component';
 import { ProdcutoComponent } from 'src/app/pages/prodcuto/prodcuto.component';
+import { SubirArchivoComponent } from 'src/app/pages/subir-archivo/subir-archivo.component';
 
 
 
@@ -18,6 +19,7 @@ const appRoutes: Routes = [
   { path : 'categoria/:id' , component: CategoriaComponent },
   { path : 'producto' , component: ProdcutoComponent },
   { path : 'producto/:id' , component: ProdcutoComponent },
+  {path : 'subirArchivo' , component: SubirArchivoComponent },
 
 
   // otherwise redirect to home

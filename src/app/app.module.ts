@@ -21,6 +21,7 @@ import { LineaService } from './service/linea.service';
 import { CategoriaService } from './service/categoria.service';
 import { ProductoService } from './service/producto.service';
 import { SubirArchivosService } from './service/subir-archivos.service';
+import { SubirArchivoComponent } from './pages/subir-archivo/subir-archivo.component';
 
 
 
@@ -33,7 +34,8 @@ import { SubirArchivosService } from './service/subir-archivos.service';
     CategoriaComponent,
     ProdcutoComponent,
     NavbarComponent,
-    ModalComponent
+    ModalComponent,
+    SubirArchivoComponent
   ],
   imports: [
     BrowserModule,
