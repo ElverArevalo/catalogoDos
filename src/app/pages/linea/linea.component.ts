@@ -20,7 +20,9 @@ export class LineaComponent implements OnInit {
   forma: FormGroup;
   imagenSubir: File;
   idLinea;
-
+  desde: number =  0;
+  totalRegistro: number = 0;
+  
 
   constructor(public serviceLinea: LineaService,
   
@@ -75,12 +77,34 @@ export class LineaComponent implements OnInit {
         this.forma.reset();
       });
   }
-  cargaLinea() {
-    this.serviceLinea.cargarLinea()
-      .subscribe((resp: any) => {
-        this.lineas = resp;
-      });
+
+
+  paginacionDesde(valor: number) {
+    let desde = this.desde + valor;
+    if (desde >= this.serviceLinea.totalLinea) {
+      return;
+    }
+    if (desde < 0) {
+      return;
+    }
+    this.desde = desde;
+    this.cargaLinea();
   }
+  cargaLinea() {
+    this.serviceLinea.cargarLinea(this.desde)
+    .subscribe((resp: any) => {
+      
+      this.lineas = resp;
+
+      this.totalRegistro =this.serviceLinea.totalLinea
+   
+    });
+}
+
+
+
+
+
   check(estado: any, Id) {
     console.log(estado.currentTarget.checked);
     console.log(Id);
@@ -93,6 +117,7 @@ export class LineaComponent implements OnInit {
       });
   }
   seleccionImagen(archivo: File) {
+    console.log(archivo);
     if (!archivo) {
       this.imagenSubir = null;
       return;

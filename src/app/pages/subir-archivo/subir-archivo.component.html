@@ -4,7 +4,14 @@
     <div class="row">
         <div class="shadow-lg p-3 mb-50 bg-white rounded">
             <input (change)="seleccionArchivo($event.target.files[0])" type="file">
-            <p class="text-danger" style="text-align: center;">Selcione archivos formato excel.exce</p>
+            <p class="text-danger" style="text-align: center;">Selcione archivos formato .csv</p>
+            <hr>
+            <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="subirArchivos()" >    
+                Subir
+            </button>
+        </div>
+        <div>
+           
         </div>
     </div>
 </div>

@@ -9,20 +9,26 @@ import { map } from 'rxjs/operators';
 })
 export class ProductoService {
 
- 
+  totalProducto: number = 0;
+  productoPorPagina: number = 0;
   constructor(public http: HttpClient,
     public router: Router) { }
 
 
-    cargarproducto(categoiraId:any) {
-      let url = URL_SERVICIOS + '/producto/' + categoiraId;
+    cargarproducto(categoiraId:string, desde: number = 0) {
+      let url = URL_SERVICIOS  + '/producto/'+ categoiraId + '?desde=' + desde;
+    
       return this.http.get(url)
         .pipe(map((resp: any) => {
-           return resp.producto;
+          this.totalProducto = resp.total
+         
+          this.productoPorPagina = resp.length;
+          return resp.producto;
         }));
+  
     }
     atulizarproducto(forma, id:any) {
-        console.log(id);
+   
         let url = URL_SERVICIOS + '/producto/' + id;
         return this.http.put(url, forma, id)
           .pipe(map((resp: any) => {

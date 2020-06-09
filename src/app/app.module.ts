@@ -22,6 +22,9 @@ import { CategoriaService } from './service/categoria.service';
 import { ProductoService } from './service/producto.service';
 import { SubirArchivosService } from './service/subir-archivos.service';
 import { SubirArchivoComponent } from './pages/subir-archivo/subir-archivo.component';
+import { LoginComponent } from './login/login/login.component';
+import { LoginService } from './service/login.service';
+import { UploadPlanoService } from './service/upload-plano.service';
 
 
 
@@ -35,7 +38,8 @@ import { SubirArchivoComponent } from './pages/subir-archivo/subir-archivo.compo
     ProdcutoComponent,
     NavbarComponent,
     ModalComponent,
-    SubirArchivoComponent
+    SubirArchivoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,15 @@ import { SubirArchivoComponent } from './pages/subir-archivo/subir-archivo.compo
     ReactiveFormsModule,
 
   ],
-  providers: [LineaService, ModalService, CategoriaService, ProductoService, SubirArchivosService],
+  providers: [
+    LineaService, 
+    ModalService, 
+    CategoriaService, 
+    ProductoService, 
+    SubirArchivosService,
+    UploadPlanoService,
+    LoginService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

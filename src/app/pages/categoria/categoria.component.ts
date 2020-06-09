@@ -17,21 +17,27 @@ linea_id: any;
 categorias: any[];
 idCategoria;
 nombreLine;
+desde: number =  0;
+totalRegistro: number = 0;
+categoriaLength: number = 0;
+
   constructor(private activate: ActivatedRoute,
     public serviceCategoria: CategoriaService,
     public serviceModal: ModalService,
     public serviceLinea: LineaService) { }
 
   ngOnInit(): void {
+   
     this.activate.params.subscribe(
       params => {
         this.linea_id = params['id'];
-        console.log(this.linea_id);
+       
        
       }
     );
-    this.obtenerNombreLine();
     this. cargaCategoria();
+    this.obtenerNombreLine();
+  
     this.forma = new FormGroup({
       nombre: new FormControl(null, Validators.required),
       descripcion: new FormControl(null, Validators.required),
@@ -50,12 +56,27 @@ nombreLine;
   }
 
   cargaCategoria() {
-    this.serviceCategoria.cargarCategoria(this.linea_id)
+    this.serviceCategoria.cargarCategoria(this.linea_id, this.desde)
       .subscribe((resp: any) => {
+     
         this.categorias = resp;
-        console.log(this.categorias);
+        this.categoriaLength= this.categorias.length;
+       
+      
       });
       
+  }
+
+  paginacionDesde(valor: number) {
+    let desde = this.desde + valor;
+    if (desde >= this.serviceCategoria.totalCategoria) {
+      return;
+    }
+    if (desde < 0) {
+      return;
+    }
+    this.desde = desde;
+    this.cargaCategoria();
   }
   cerrarModal() {
     this.serviceModal.ocultarModal();
@@ -64,7 +85,7 @@ nombreLine;
     this.serviceModal.mostrarModal();
   }
   mostrarModalActulizar(categoria_id) {
-    console.log(categoria_id._id)
+
     this.serviceModal.mostrarModal();
     this.forma.patchValue({
       nombre: categoria_id.nombre,
@@ -93,8 +114,7 @@ nombreLine;
       });
   }
   check(estado: any, Id){
-    console.log(estado.currentTarget.checked);
-    console.log(Id);
+    
     const  estadoActual = estado.currentTarget.checked;
     var request = {estado: estadoActual};
     this.serviceCategoria.estado(Id, request)

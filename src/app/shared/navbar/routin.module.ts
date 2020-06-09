@@ -5,6 +5,7 @@ import { LineaComponent } from 'src/app/pages/linea/linea.component';
 import { CategoriaComponent } from 'src/app/pages/categoria/categoria.component';
 import { ProdcutoComponent } from 'src/app/pages/prodcuto/prodcuto.component';
 import { SubirArchivoComponent } from 'src/app/pages/subir-archivo/subir-archivo.component';
+import { LoginComponent } from 'src/app/login/login/login.component';
 
 
 
@@ -13,6 +14,8 @@ import { SubirArchivoComponent } from 'src/app/pages/subir-archivo/subir-archivo
 
 const appRoutes: Routes = [
 
+
+  { path : 'login' , component: LoginComponent },
   { path : 'linea' , component: LineaComponent },
 
   { path : 'categoria' , component: CategoriaComponent },

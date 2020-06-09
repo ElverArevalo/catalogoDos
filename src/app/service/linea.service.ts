@@ -8,19 +8,22 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class LineaService {
-
+  totalLinea: number = 0;
   
 
   constructor(public http: HttpClient,
     public router: Router) { }
 
 
-    cargarLinea() {
-      let url = URL_SERVICIOS + '/linea';
+    cargarLinea(desde: number = 0) {
+      let url = URL_SERVICIOS + '/linea?desde=' + desde
+    
       return this.http.get(url)
         .pipe(map((resp: any) => {
-           return resp.linea;
+          this.totalLinea = resp.total
+          return resp.linea;
         }));
+  
     }
     lineaById(id:any){
       let url = URL_SERVICIOS + '/linea/'+ id;
@@ -30,7 +33,7 @@ export class LineaService {
         }));
     }
     atulizarLinea(forma, id:any) {
-        console.log(id);
+       
         let url = URL_SERVICIOS + '/linea/' + id;
         return this.http.put(url, forma, id)
           .pipe(map((resp: any) => {

@@ -8,18 +8,24 @@ import { map } from 'rxjs/internal/operators/map';
   providedIn: 'root'
 })
 export class CategoriaService {
-
+  totalCategoria: number = 0;
+  categoriaPorPagina: number = 0;
   constructor(public http: HttpClient,
     public router: Router) { }
 
-  cargarCategoria(lineaId: string) {
-    let url = URL_SERVICIOS + '/categoria/' + lineaId;
+  cargarCategoria(lineaId: string, desde: number = 0) {
+    let url = URL_SERVICIOS  + '/categoria/'+ lineaId + '?desde=' + desde;
+  
     return this.http.get(url)
       .pipe(map((resp: any) => {
-         return resp.categoria;
+        this.totalCategoria = resp.total
+       
+        this.categoriaPorPagina = resp.length;
+        return resp.categoria;
       }));
+
   }
-  categoriaById(id:any){
+  categoriaById(id:any, ){
     let url = URL_SERVICIOS + '/categoria/nombre/' + id;
     return this.http.get(url)
       .pipe(map((resp: any) => {
@@ -28,7 +34,7 @@ export class CategoriaService {
 
   }
   actulizarCategoria(forma, id:any) {
-    console.log(id);
+   
     let url = URL_SERVICIOS + '/categoria/' + id;
     return this.http.put(url, forma)
       .pipe(map((resp: any) => {
