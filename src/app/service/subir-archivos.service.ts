@@ -19,7 +19,7 @@ export class SubirArchivosService {
           if(xhr.status === 200){
             resolve(JSON.parse(xhr.response) );
           } else {
-            console.log('No se subio la Imagen');
+           
             reject(xhr.response);
           }
         }

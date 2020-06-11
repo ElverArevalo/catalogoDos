@@ -9,13 +9,13 @@
     float: right;
     box-sizing: border-box;
     
-    width: 50%;
+    width: 35%;
     padding: 1em 2em;
   margin-top: 60px;
 }
 .ladoIzquierdo{
   
-    width: 50%;
+    width: 65%;
    background-image: url("https://thumbs.dreamstime.com/z/mofa-del-escritorio-de-oficina-encima-del-fondo-de-la-plantilla-con-los-art%C3%ADculos-de-la-tableta-del-smartphone-y-de-la-oficina-50562218.jpg");
    height: 100%;
   position: absolute;
@@ -23,11 +23,17 @@
   
 }
 
-@media screen and (min-width: 780px) and (max-width:1024px){
+@media screen and (min-width: 823px) and (max-width:1024px){
     
  
 }
-@media screen and (min-width: 600px) and (max-width:780px){
+@media screen and (min-width: 700px) and (max-width:823px){
+  .titulo {
+    font-family: 'Libre Baskerville', serif !important;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+}
     .ladoDerecho {
    
         float: right;
@@ -35,7 +41,7 @@
         
         width: 40%;
         padding: 1em 2em;
-      margin-top: 60px;
+    
     }
     .ladoIzquierdo{
   
@@ -47,7 +53,7 @@
       
     }
 }
-@media screen and (max-width:  600px) {
+@media screen and (max-width:  700px) {
 
     .ladoDerecho {
    

@@ -66,6 +66,8 @@ export class LineaComponent implements OnInit {
         this.cargaLinea();
         this.cerrarModal();
         this.forma.reset();
+      }, error => {
+        console.log(error);
       })
   }
   guardarLinea() {

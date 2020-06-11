@@ -3,15 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { map } from 'rxjs/operators';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LineaService {
   totalLinea: number = 0;
-  
+  userToken: any;
 
   constructor(public http: HttpClient,
+    public serviceLogin: LoginService,
     public router: Router) { }
 
 
@@ -42,11 +44,9 @@ export class LineaService {
     }
     guardarLineaNueva(formulario:any) {
       let url = URL_SERVICIOS + '/linea';
-     
+      url += '?token=' + this.serviceLogin.userToken;
       return this.http.post(url, formulario)
-  
-    
-    }
+     }
 
     estado(id:any, estado: any){
       let url = URL_SERVICIOS + '/linea/estado/' + id;

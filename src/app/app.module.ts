@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,7 +11,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { RoutingModule } from './shared/navbar/routin.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { ModalService } from './modal/modal.service';
 import { ModalComponent } from './modal/modal.component';
@@ -25,7 +26,17 @@ import { SubirArchivoComponent } from './pages/subir-archivo/subir-archivo.compo
 import { LoginComponent } from './login/login/login.component';
 import { LoginService } from './service/login.service';
 import { UploadPlanoService } from './service/upload-plano.service';
+import { PagesComponent } from './pages/pages.component';
+import { URL_SERVICIOS } from './config/config';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginGuard } from './guards/login.guard';
+import { JwtInterceptor } from './helper/jtw.JwtInterceptor';
+import { ErrorInterceptor } from './helper/error.interceptor';
 
+
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
 
 
 
@@ -39,7 +50,8 @@ import { UploadPlanoService } from './service/upload-plano.service';
     NavbarComponent,
     ModalComponent,
     SubirArchivoComponent,
-    LoginComponent
+    LoginComponent,
+    PagesComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +60,16 @@ import { UploadPlanoService } from './service/upload-plano.service';
     RoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: [URL_SERVICIOS],
+        blacklistedRoutes: [],
+        headerName: "token",
+        authScheme: '',
+        skipWhenExpired : true
+      }
+    }),
   ],
   providers: [
     LineaService, 
@@ -57,7 +78,11 @@ import { UploadPlanoService } from './service/upload-plano.service';
     ProductoService, 
     SubirArchivosService,
     UploadPlanoService,
-    LoginService
+    LoginService,
+    AuthGuard,
+    LoginGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
