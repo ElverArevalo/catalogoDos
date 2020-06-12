@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { URL_SERVICIOS } from '../config/config';
 import { map } from 'rxjs/operators';
-import { read } from 'fs';
 
 @Injectable({
   providedIn: 'root'
