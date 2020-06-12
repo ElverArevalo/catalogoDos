@@ -1,27 +1,27 @@
 
 
-  <div class="padding" style="margin-bottom: 80px;">
-    <div style=" float: right;  margin-top: 20px; margin-right: 60px;">
-      <nav aria-label="Page navigation example">
-        <p>Total Registros: {{totalRegistro}}</p>
-        <p>Linea por pag: {{lineas.length}}</p>
-        <button class="btn btn-secondary" (click)="paginacionDesde(-12)">
-          Anteriores
-        </button>
-      
-        <button class="btn btn-secondary" (click)="paginacionDesde(12)">
-          Siguientes
-        </button>
-      </nav>
-    </div>
+
+
+
+
+
+
+   <!--Buscador-->
+   <div class="sticky">
+    <div class="">
+      <div class="card colorBuscador">
+        <div class="card-body">
+          <input #input (keyup)="buscarLinea(input.value) " type="text" class="form-control"  placeholder="Buscar Linea...">
+        </div>
+      </div>
+      </div>
   </div>
 
-
-
 <!-- Button trigger modal -->
-<button style="margin: 50px; margin-top: 80px;" type="button" class="d-inline p-2 bg-dark text-white" (click)="mostrarModal()" data-toggle="modal" data-target="#exampleModal">
+<button style="margin: 50px; margin-top: 10px;" type="button" class="d-inline p-2 bg-dark text-white" (click)="mostrarModal()" data-toggle="modal" data-target="#exampleModal">
   Agregar Linea
 </button>
+
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" [ngClass]="serviceModal.oculto">
@@ -200,4 +200,21 @@
 
 </div>
 </div>
+</div>
+
+
+<div class="padding" style="margin-bottom: 80px;">
+  <div style=" float: right;  margin-top: 20px; margin-right: 60px;">
+    <nav aria-label="Page navigation example">
+      <p>Total Registros: {{totalRegistro}}</p>
+      <p>Linea por pag: {{lineas.length}}</p>
+      <button class="btn btn-secondary" (click)="paginacionDesde(-12)">
+        Anteriores
+      </button>
+    
+      <button class="btn btn-secondary" (click)="paginacionDesde(12)">
+        Siguientes
+      </button>
+    </nav>
+  </div>
 </div>

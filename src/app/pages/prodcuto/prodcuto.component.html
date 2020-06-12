@@ -1,6 +1,16 @@
 
 <div class="p-3 mb-2 bg-info text-white text-center text-uppercase">Pertenece a la categoria <p class="font-italic" style="font-size: 30px;">{{nombreCategoria}}</p> </div>
 
+  <!--Buscador-->
+  <div class="">
+    <div class="" style="margin: 20px;">
+      <div class="card colorBuscador">
+        <div class="card-body">
+          <input #input (keyup)="buscarProductos(input.value) " type="text" class="form-control"  placeholder="Buscar Productos...">
+        </div>
+      </div>
+      </div>
+  </div>
 <!-- paginacion-->
 
 

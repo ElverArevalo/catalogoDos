@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { URL_SERVICIOS } from '../config/config';
 import { map } from 'rxjs/operators';
+import { read } from 'fs';
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +50,16 @@ export class ProductoService {
         .pipe(map((resp: any) => {
            return resp.categoria;
         }));
+    }
+    buscaProductos(termino: string, categoiraId: any) {
+      let url = URL_SERVICIOS + '/producto/todo/'+ termino + '/' +categoiraId ;
+      return this.http.get(url)
+      .pipe(map((resp: any) => {
+        this.totalProducto = resp.total
+     
+        this.productoPorPagina = resp.length;
+        return resp.productos;
+      }));
+
     }
 }

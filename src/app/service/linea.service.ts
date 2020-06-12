@@ -32,7 +32,7 @@ export class LineaService {
       return this.http.get(url)
         .pipe(map((resp: any) => {
            return resp.linea;
-        }));
+        }))
     }
     atulizarLinea(forma, id:any) {
        
@@ -44,7 +44,7 @@ export class LineaService {
     }
     guardarLineaNueva(formulario:any) {
       let url = URL_SERVICIOS + '/linea';
-      url += '?token=' + this.serviceLogin.userToken;
+     
       return this.http.post(url, formulario)
      }
 
@@ -54,5 +54,11 @@ export class LineaService {
         .pipe(map((resp: any) => {
            return resp.categoria;
         }));
+    }
+
+    buscarLine(termino: string) {
+      let url = URL_SERVICIOS + '/linea/todo/' + termino;
+      return this.http.get(url)
+      .pipe( map((resp:any )=> resp.lineas))
     }
 }

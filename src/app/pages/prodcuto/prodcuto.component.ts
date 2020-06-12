@@ -13,14 +13,15 @@ import swal from 'sweetalert';
 })
 export class ProdcutoComponent implements OnInit {
   productos = [];
+
   forma: FormGroup;
   imagenSubir: File;
   idProducto;
   categoria_id;
   nombreCategoria: any;
-  desde: number =  0;
- totalRegistro: number = 0;
- productoLength: number = 0;
+  desde: number = 0;
+  totalRegistro: number = 0;
+  productoLength: number = 0;
 
 
   constructor(public serviceProducto: ProductoService,
@@ -41,7 +42,7 @@ export class ProdcutoComponent implements OnInit {
     );
     this.cargaProducto();
     this.obtnerNombreCategoria();
-   
+
     this.forma = new FormGroup({
       nombre: new FormControl(null, Validators.required),
       descripcion: new FormControl(null, Validators.required),
@@ -113,7 +114,7 @@ export class ProdcutoComponent implements OnInit {
     this.serviceProducto.cargarproducto(this.categoria_id, this.desde)
       .subscribe((resp: any) => {
         this.productos = resp;
-        this.productoLength= this.productos.length;
+        this.productoLength = this.productos.length;
       });
 
   }
@@ -167,7 +168,6 @@ export class ProdcutoComponent implements OnInit {
         this.cargaProducto();
         this.cerrarModal();
 
-
       })
       .catch(err => {
         swal('Solo Imagenes', 'Error a cargar la Imagen', 'error');
@@ -175,6 +175,18 @@ export class ProdcutoComponent implements OnInit {
 
   }
 
+  buscarProductos(termino: string) {
 
+    if (termino.trim() == "") {
+      this.cargaProducto();
+      return;
+    }
+    this.serviceProducto.buscaProductos(termino, this.categoria_id)
+      .subscribe((productos: any) => {
+        this.productos = productos;
+        this.productoLength = this.productos.length;
 
+      })
+
+  }
 }

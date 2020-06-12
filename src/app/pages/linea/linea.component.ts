@@ -51,7 +51,7 @@ export class LineaComponent implements OnInit {
     this.serviceModal.mostrarModalImagen('lineas', id);
   }
   mostrarModalActulizar(linea_id) {
-    console.log(linea_id._id)
+  
     this.serviceModal.mostrarModal();
     this.forma.patchValue({
       nombre: linea_id.nombre,
@@ -108,8 +108,7 @@ export class LineaComponent implements OnInit {
 
 
   check(estado: any, Id) {
-    console.log(estado.currentTarget.checked);
-    console.log(Id);
+  
     const estadoActual = estado.currentTarget.checked;
     var request = { estado: estadoActual };
     this.serviceLinea.estado(Id, request)
@@ -119,7 +118,7 @@ export class LineaComponent implements OnInit {
       });
   }
   seleccionImagen(archivo: File) {
-    console.log(archivo);
+   
     if (!archivo) {
       this.imagenSubir = null;
       return;
@@ -144,4 +143,22 @@ export class LineaComponent implements OnInit {
         swal('Solo Imagenes', 'Error a cargar la Imagen', 'error');
       });
   }
+
+
+buscarLinea( termino: string ) {
+
+  if (termino.trim() == "") {
+    this.cargaLinea();
+  return;
+  }
+
+this.serviceLinea.buscarLine(termino)
+.subscribe((lineas)=> {
+   this.lineas = lineas;
+   this.totalRegistro =this.serviceLinea.totalLinea
+
+})
+}
+
+
 }

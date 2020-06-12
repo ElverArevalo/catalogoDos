@@ -3,3 +3,15 @@
     width: 100%;
     height: 200px;
 }
+.colorBuscador {
+    background-color: rgb(241, 237, 225);
+}
+
+
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 99999;
+    margin: 10px;
+}

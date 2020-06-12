@@ -123,6 +123,21 @@ categoriaLength: number = 0;
      this.cargaCategoria();
     });
   }
+
+  buscarCategoria(termino: string) {
+
+    if (termino.trim() == "") {
+      this.cargaCategoria();
+      return;
+    }
+    this.serviceCategoria.buscaCategorias(termino, this.linea_id)
+      .subscribe((categorias: any) => {
+        this.categorias = categorias;
+        this.categoriaLength = this.categorias.length;
+
+      })
+
+  }
   
 
 }
