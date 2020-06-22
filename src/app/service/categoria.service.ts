@@ -29,6 +29,7 @@ export class CategoriaService {
           return throwError(err.message);
         }))
   }
+  /// busca el nombre que pertence a la linea
   categoriaById(id: any,) {
     let url = URL_SERVICIOS + '/categoria/nombre/' + id;
     return this.http.get(url)
