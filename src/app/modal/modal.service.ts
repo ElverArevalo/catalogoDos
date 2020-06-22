@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { LineaService } from '../service/linea.service';
+
 declare var $:any;
 
 @Injectable({

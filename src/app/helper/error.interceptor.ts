@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import swal from 'sweetalert'
+
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -13,7 +13,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             
             const error = err.error.mensaje;
            
-            swal(error, "Error", 'error');
+            console.log(error, "Error", 'error');
 
             return throwError(err);
         }))

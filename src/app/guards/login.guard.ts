@@ -5,7 +5,7 @@ import {
 } from "@angular/router";
 import { Observable } from 'rxjs';
 import { LoginService } from '../service/login.service';
-import swal from 'sweetalert'
+
 @Injectable()
 export class LoginGuard implements CanActivate {
   constructor(
