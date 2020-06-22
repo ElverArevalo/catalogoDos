@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LineaService } from 'src/app/service/linea.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/modal/modal.service';
-import swal from 'sweetalert';
+
 
 import { SubirArchivosService } from 'src/app/service/subir-archivos.service';
 
@@ -62,7 +62,7 @@ export class LineaComponent implements OnInit {
   actulizaLinea() {
     this.serviceLinea.atulizarLinea(this.forma.value, this.idLinea)
       .subscribe((resp) => {
-        swal("Actulizado!", "Linea actulizada!", "success");
+        console.log("Actulizado!", "Linea actulizada!", "success");
         this.cargaLinea();
         this.cerrarModal();
         this.forma.reset();
@@ -73,7 +73,7 @@ export class LineaComponent implements OnInit {
   guardarLinea() {
     this.serviceLinea.guardarLineaNueva(this.forma.value)
       .subscribe((resp) => {
-        swal("Guardado!", "Linea guardada!", "success");
+        console.log("Guardado!", "Linea guardada!", "success");
         this.cerrarModal();
         this.cargaLinea();
         this.forma.reset();
@@ -113,7 +113,7 @@ export class LineaComponent implements OnInit {
     var request = { estado: estadoActual };
     this.serviceLinea.estado(Id, request)
       .subscribe((resp) => {
-        swal("Estado!", "Estado cambio !", "success");
+        console.log("Estado!", "Estado cambio !", "success");
         this.cargaLinea();
       });
   }
@@ -124,7 +124,7 @@ export class LineaComponent implements OnInit {
       return;
     }
     if (archivo.type.indexOf('image') < 0) {
-      swal('Solo Imagenes', 'El archivo seleccionado no es una imagen', 'error');
+      console.log('Solo Imagenes', 'El archivo seleccionado no es una imagen', 'error');
       this.imagenSubir = null;
       this.cerrarModal();
       return;
@@ -140,7 +140,7 @@ export class LineaComponent implements OnInit {
         this.cerrarModal();
       })
       .catch(err => {
-        swal('Solo Imagenes', 'Error a cargar la Imagen', 'error');
+        console.log('Solo Imagenes', 'Error a cargar la Imagen', 'error');
       });
   }
 

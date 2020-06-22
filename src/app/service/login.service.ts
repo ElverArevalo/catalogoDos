@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { catchError } from "rxjs/operators";
 import { throwError} from 'rxjs';
-import swal from 'sweetalert'
+
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable({
@@ -41,7 +41,7 @@ export class LoginService {
       }),
      catchError(err => {
        
-        swal('Error en el login!', err.error.mensaje, 'error');
+       console.log('Error en el login!', err.error.mensaje, 'error');
         return throwError(err.message);
       }))
   }

@@ -4,7 +4,7 @@ import { CategoriaService } from 'src/app/service/categoria.service';
 import { ModalService } from 'src/app/modal/modal.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LineaService } from 'src/app/service/linea.service';
-import swal from 'sweetalert';
+
 
 @Component({
   selector: 'app-categoria',
@@ -98,7 +98,7 @@ categoriaLength: number = 0;
   actulizaCategoria(){
     this.serviceCategoria.actulizarCategoria(this.forma.value, this.idCategoria)
     .subscribe((resp) => {
-      swal("Actulizado!", "Categoria actulizada!", "success");
+      console.log("Actulizado!", "Categoria actulizada!", "success");
       this.cargaCategoria();
       this.cerrarModal();
       this.forma.reset();
@@ -107,7 +107,7 @@ categoriaLength: number = 0;
   guardarCategoria() {
     this.serviceCategoria.guardarCategoriaNueva(this.forma.value, this.linea_id)
       .subscribe((resp) => {
-        swal("Guardada!", "Categoria guardada!", "success");
+        console.log("Guardada!", "Categoria guardada!", "success");
         this.cerrarModal();
         this.cargaCategoria();
         this.forma.reset();
@@ -119,7 +119,7 @@ categoriaLength: number = 0;
     var request = {estado: estadoActual};
     this.serviceCategoria.estado(Id, request)
     .subscribe((resp)=>{
-      swal("Estado!", "Estado cambio!", "success");
+      console.log("Estado!", "Estado cambio!", "success");
      this.cargaCategoria();
     });
   }
