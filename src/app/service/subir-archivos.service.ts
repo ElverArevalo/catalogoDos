@@ -25,7 +25,7 @@ export class SubirArchivosService {
         }
       };
 
-      let url = URL_SERVICIOS + '/onedrive.live.com/?id=root&cid=9A7889A20AD5ED4F/' + tipo + '/' + id;
+      let url = URL_SERVICIOS + '/upload/' + tipo + '/' + id;
       xhr.open('PUT', url, true);
       xhr.send(formData);
 
