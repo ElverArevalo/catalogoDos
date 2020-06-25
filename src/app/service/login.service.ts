@@ -7,6 +7,7 @@ import { throwError} from 'rxjs';
 
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import Swal from 'sweetalert2'
 @Injectable({
   providedIn: 'root'
 })
@@ -41,8 +42,14 @@ export class LoginService {
         return true;
       }),
      catchError(err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error, credenciales incorrectas' ,
+        timer: 2000,
+        showConfirmButton: false,
+      })
        
-       console.log('Error en el login!', err.error.mensaje, 'error');
         return throwError(err.message);
       }))
   }

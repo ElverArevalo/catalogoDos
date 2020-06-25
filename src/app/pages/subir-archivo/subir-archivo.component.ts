@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadPlanoService } from 'src/app/service/upload-plano.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-subir-archivo',
   templateUrl: './subir-archivo.component.html',
@@ -20,8 +20,14 @@ export class SubirArchivoComponent implements OnInit {
       return;
     }
     if (archivo.type.indexOf('application/vnd.ms-excel') < 0) {
-      console.log('Solo Archivos', 'El archivo seleccionado no es  .csv', 'error');
-      this.archivoSubir = null;
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error a cargar el archivo, El archivo seleccionado no es  .csv' ,
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      
      
       return;
     }
@@ -32,11 +38,25 @@ export class SubirArchivoComponent implements OnInit {
   subirArchivos() {
     this.serviceUploadPlano.subirArchivo(this.archivoSubir)
       .then(resp => {
-        console.log('Excelente', 'Subido exitosamente', 'success');
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Tu trabajo ha sido guardado',
+          showConfirmButton: false,
+          timer: 2000,
+        });
+       
        
       })
       .catch(err => {
-        console.log('Solo Archivos .CSV', 'Error a cargar el archivo', 'error');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Error a cargar el archivo, el formato debe ser .CSV' ,
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        
       });
   }
 

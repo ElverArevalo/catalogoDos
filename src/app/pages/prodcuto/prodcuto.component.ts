@@ -5,7 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProductoService } from 'src/app/service/producto.service';
 import { SubirArchivosService } from 'src/app/service/subir-archivos.service';
 import { CategoriaService } from 'src/app/service/categoria.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-prodcuto',
   templateUrl: './prodcuto.component.html',
@@ -93,7 +93,13 @@ export class ProdcutoComponent implements OnInit {
   actulizaProducto() {
     this.serviceProducto.atulizarproducto(this.forma.value, this.idProducto)
       .subscribe((resp) => {
-        console.log("Actulizado!", "Producto actulizada!", "success");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Tu trabajo ha sido actualizado',
+          showConfirmButton: false,
+          timer: 2000,
+        });
         this.cargaProducto();
         this.cerrarModal();
         this.forma.reset();
@@ -103,7 +109,13 @@ export class ProdcutoComponent implements OnInit {
 
     this.serviceProducto.guardarProductoNueva(this.forma.value, this.categoria_id)
       .subscribe((resp) => {
-        console.log("Guardado!", "Producto guardado!", "success");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Tu trabajo ha sido guardado',
+          showConfirmButton: false,
+          timer: 2000,
+        });
         this.cerrarModal();
         this.cargaProducto();
         this.forma.reset();
@@ -138,7 +150,13 @@ export class ProdcutoComponent implements OnInit {
     var request = { estado: estadoActual };
     this.serviceProducto.estado(Id, request)
       .subscribe((resp) => {
-        console.log("Estado!", "Estado cambio!", "success");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Se cambio de estado',
+          showConfirmButton: false,
+          timer: 2000,
+        });
         this.cargaProducto();
       });
   }
@@ -149,7 +167,14 @@ export class ProdcutoComponent implements OnInit {
       return;
     }
     if (archivo.type.indexOf('image') < 0) {
-      console.log('Solo Imagenes', 'El archivo seleccionado no es una imagen', 'error');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El archivo seleccionado no es una imagen' ,
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      
       this.imagenSubir = null;
       this.cerrarModal();
       return;
@@ -170,7 +195,13 @@ export class ProdcutoComponent implements OnInit {
 
       })
       .catch(err => {
-        console.log('Solo Imagenes', 'Error a cargar la Imagen', 'error');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Error a cargar la Imagen' ,
+          timer: 2000,
+          showConfirmButton: false,
+        });
       });
 
   }

@@ -4,6 +4,7 @@ import { CategoriaService } from 'src/app/service/categoria.service';
 import { ModalService } from 'src/app/modal/modal.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LineaService } from 'src/app/service/linea.service';
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -98,7 +99,13 @@ categoriaLength: number = 0;
   actulizaCategoria(){
     this.serviceCategoria.actulizarCategoria(this.forma.value, this.idCategoria)
     .subscribe((resp) => {
-      console.log("Actulizado!", "Categoria actulizada!", "success");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Tu trabajo ha sido actulizado',
+        showConfirmButton: false,
+        timer: 2000,
+      });
       this.cargaCategoria();
       this.cerrarModal();
       this.forma.reset();
@@ -107,7 +114,13 @@ categoriaLength: number = 0;
   guardarCategoria() {
     this.serviceCategoria.guardarCategoriaNueva(this.forma.value, this.linea_id)
       .subscribe((resp) => {
-        console.log("Guardada!", "Categoria guardada!", "success");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Tu trabajo ha sido guardado',
+          showConfirmButton: false,
+          timer: 2000,
+        });
         this.cerrarModal();
         this.cargaCategoria();
         this.forma.reset();
@@ -119,7 +132,13 @@ categoriaLength: number = 0;
     var request = {estado: estadoActual};
     this.serviceCategoria.estado(Id, request)
     .subscribe((resp)=>{
-      console.log("Estado!", "Estado cambio!", "success");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Se cambio de estado',
+        showConfirmButton: false,
+        timer: 2000,
+      });
      this.cargaCategoria();
     });
   }

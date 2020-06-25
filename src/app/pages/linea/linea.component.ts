@@ -5,7 +5,7 @@ import { ModalService } from 'src/app/modal/modal.service';
 
 
 import { SubirArchivosService } from 'src/app/service/subir-archivos.service';
-
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -62,7 +62,13 @@ export class LineaComponent implements OnInit {
   actulizaLinea() {
     this.serviceLinea.atulizarLinea(this.forma.value, this.idLinea)
       .subscribe((resp) => {
-        console.log("Actulizado!", "Linea actulizada!", "success");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Tu trabajo ha sido actulizado',
+          showConfirmButton: false,
+          timer: 2000,
+        });
         this.cargaLinea();
         this.cerrarModal();
         this.forma.reset();
@@ -73,7 +79,13 @@ export class LineaComponent implements OnInit {
   guardarLinea() {
     this.serviceLinea.guardarLineaNueva(this.forma.value)
       .subscribe((resp) => {
-        console.log("Guardado!", "Linea guardada!", "success");
+          Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Tu trabajo ha sido guardado',
+          showConfirmButton: false,
+          timer: 2000,
+        });
         this.cerrarModal();
         this.cargaLinea();
         this.forma.reset();
@@ -113,7 +125,13 @@ export class LineaComponent implements OnInit {
     var request = { estado: estadoActual };
     this.serviceLinea.estado(Id, request)
       .subscribe((resp) => {
-        console.log("Estado!", "Estado cambio !", "success");
+       Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Se cambio de estado',
+        showConfirmButton: false,
+        timer: 2000,
+      });
         this.cargaLinea();
       });
   }
@@ -124,6 +142,13 @@ export class LineaComponent implements OnInit {
       return;
     }
     if (archivo.type.indexOf('image') < 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El archivo seleccionado no es una imagen' ,
+        timer: 2000,
+        showConfirmButton: false,
+      });
       console.log('Solo Imagenes', 'El archivo seleccionado no es una imagen', 'error');
       this.imagenSubir = null;
       this.cerrarModal();
@@ -140,7 +165,14 @@ export class LineaComponent implements OnInit {
         this.cerrarModal();
       })
       .catch(err => {
-        console.log('Solo Imagenes', 'Error a cargar la Imagen', 'error');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Error a cargar la Imagen' ,
+          timer: 2000,
+          showConfirmButton: false,
+        });
+       
       });
   }
 

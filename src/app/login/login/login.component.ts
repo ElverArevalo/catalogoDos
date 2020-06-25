@@ -42,15 +42,9 @@ export class LoginComponent implements OnInit {
         icon: 'success',
         title: 'Bienvenido ' + this.serviceLogin.usuario
       })
-      console.log(resp);
+      
       if(resp['error']) {
-        Swal.fire({
-          position: 'top-end',
-          icon: 'error',
-          title: 'Error de credenciales' + resp['error'],
-          showConfirmButton: false,
-          timer: 1500
-        })
+        console.log('credenciales mal')
       }else {
         
         this.router.navigate(['/linea']);
