@@ -44,8 +44,15 @@ export class LoginComponent implements OnInit {
       })
       console.log(resp);
       if(resp['error']) {
-        console.log('credenciales mal')
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Error de credenciales' + resp['error'],
+          showConfirmButton: false,
+          timer: 1500
+        })
       }else {
+        
         this.router.navigate(['/linea']);
       }
      
