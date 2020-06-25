@@ -36,6 +36,7 @@ export class LoginService {
       let url = URL_SERVICIOS + '/login'
     return this.http.post(url, formulario)
       .pipe(map((resp: any) => {
+        this.usuario = resp.usuario.nombre;
         this.guardarStorage(resp.token)
         return true;
       }),
